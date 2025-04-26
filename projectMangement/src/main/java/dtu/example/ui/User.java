@@ -5,22 +5,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class User {
+    private static final Map<String, Employee> employees = new HashMap<>();
+    private static final CLIEngine cliEngine = new CLIEngine();
 
- public static void main(String[] args) throws ParseException {
-     CLIEngine cliEngine = new CLIEngine(); // Create an instance of CLIEngine
-      Map<String, Employee> employees = new HashMap<>(); // List to store employees
+    public static void main(String[] args) throws ParseException {
+        runApplication();
+    }
 
-     
-     int choice = cliEngine.displayChoices(); // Display the choices again
-     
+    private static void runApplication() throws ParseException {
+        int choice = cliEngine.displayChoices();
 
-     String emplyeeId = ""; // Example employee ID
-     while (choice != 9) {
-         cliEngine.executeChoice(choice, employees); // Execute the choice made by the user
-         System.out.println("");
-         choice = cliEngine.displayChoices(); // Display the choices again
-     }
-
- }
+        while (choice != 9) {
+            cliEngine.executeChoice(choice, employees);
+            System.out.println();
+            choice = cliEngine.displayChoices();
+        }
+    }
 }
 

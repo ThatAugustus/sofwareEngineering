@@ -5,7 +5,7 @@ Scenario: Create employee with a name, surname and ID
 	Then show the list of employees contains an employee with that name, surname and ID
 	
 Scenario: Create an employee with used ID
-	Given emplyee with name "Baqer", surname "Nour" and ID "bano" exists
+	Given employee with name "Baqer", surname "Nour" and ID "bano" exists
 	When an employee is created with name "Noah", surname "Johnsen" and a used ID "bano"
 	Then the system will return an error message.
 	

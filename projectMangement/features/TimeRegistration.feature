@@ -1,6 +1,6 @@
 # Created by augusthansen at 26/04/2025
-Feature: # Enter feature name here
-  # Enter feature description here
+Feature: A user can register time on an activity
 
-  Scenario: # Enter scenario name here
-    # Enter steps here
+
+  //Scenario: A user registers time on an activity successfully
+  //  Given employee with name "Baqer", surname "Nour" and ID "bano" exists

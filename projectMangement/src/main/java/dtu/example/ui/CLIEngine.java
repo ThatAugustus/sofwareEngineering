@@ -1,11 +1,16 @@
 package dtu.example.ui;
+
+import Exceptions.EmployeeAlreadyExistsException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.Scanner;
 
 public class CLIEngine {
+
 	public boolean login (Map<String, Employee> employees) {
         Scanner sc = new Scanner(System.in);
         System.out.print("Please enter your username: ");
@@ -26,20 +31,17 @@ public class CLIEngine {
         }
         return isLoggedIn;        
     }
-	
-	public boolean checkIfEmployeeExists(String employeeId, Map<String, Employee> employees) {
+
+	public boolean isEmployeeIdInUse(String employeeId, Map<String, Employee> employees)  {
         return employees.containsKey(employeeId);
     }
 
-	public boolean creatNewEmployees(Map<String, Employee> employees, String name, String surname, String emplyeeId) {
-		boolean employeeExists = checkIfEmployeeExists(emplyeeId, employees);
-		if(!employeeExists) {
-			employees.put(emplyeeId, new Employee(name, surname));
-		}
-		else {
-			System.out.println("Error: \"" +  emplyeeId + "\" is used!");
-		}
-		return employeeExists;
+	public void createNewEmployee(Map<String, Employee> employees, String name, String surname, String employeeId) {
+            if (isEmployeeIdInUse(employeeId, employees)) {
+                System.out.println("Employee Id already exists. Please find another id.");
+            }
+            employees.put(employeeId, new Employee(name, surname));
+            System.out.println("Employee created successfully!");
     }
 
     /*public void addNewActivityToProject( Map<String, Employee> employees) throws ParseException {
@@ -67,8 +69,8 @@ public class CLIEngine {
         employees.get(employeeId).getActivity(activityId).setActivityStatus(activityStatus);
     }*/
 	
-	public void addNewActivityToProject( Map<String, Employee> employees, String employeeId, String activityId, 
-			String activityName, Date startDate, Date endDate, double activityBudgtedhour, String activityStatus) {
+	public void addNewActivityToProject(Map<String, Employee> employees, String employeeId, String activityId,
+                                        String activityName, LocalDate startDate, LocalDate endDate, double activityBudgtedhour, String activityStatus) {
         employees.get(employeeId).setActivity(activityId, new Activity(activityName, startDate, endDate, activityBudgtedhour));
         employees.get(employeeId).getActivity(activityId).setActivityStatus(activityStatus);
         employees.get(employeeId).sortActivitiesByDate();
@@ -98,7 +100,8 @@ public class CLIEngine {
     }*/
     
     public void displayActivites(String employeeId, Map<String, Employee> employees) {
-    	SimpleDateFormat formatter = new SimpleDateFormat("MMM dd yyyy");
+    	//SimpleDateFormat formatter = new SimpleDateFormat("MMM dd yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     	String starteDateStr;
     	String endDateStr;
         Map<String, Activity> activities = employees.get(employeeId).getActivities();
@@ -152,7 +155,7 @@ public class CLIEngine {
                 String surname = sc.nextLine();
                 System.out.print("Please enter employee ID: ");
                 String emplyeeId = sc.nextLine();
-                creatNewEmployees(employees, name, surname, emplyeeId); // Create a new employee
+                createNewEmployee(employees, name, surname, emplyeeId); // Create a new employee
                 break;
             case 2:
                 // Create a new project
@@ -168,10 +171,10 @@ public class CLIEngine {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 System.out.print("Please enter activity start date (yyyy-MM-dd): ");
                 String startDateStr = sc.nextLine();
-                Date startDate = sdf.parse(startDateStr);
+                LocalDate startDate = LocalDate.parse(startDateStr);
                 System.out.print("Please enter activity end date (yyyy-MM-dd): ");
                 String endDateStr = sc.nextLine();
-                Date endDate = sdf.parse(endDateStr);
+                LocalDate endDate = LocalDate.parse(endDateStr);
                 System.out.print("Please enter activity budgted hours: ");
                 double activityBudgtedhour = sc.nextDouble();
                 sc.nextLine(); // Consume the newline character left by nextDouble()

@@ -1,42 +1,57 @@
 package dtu.example.ui;
 import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 
 public class Activity {
-   private int activityId;
+   private final String activityId;
    private String activityName;
-   private Project activityAssignedProject;
-   private String ativityStatus;
+   private Project activitiesAssignedProject;
+   private String activityStatus;
    //private Activity activityType;
    private double budgetedHours;
    private double currentSpentHours;
-   private Date startDate;
-   private Date endDate;
+   private LocalDate startDate;
+   private LocalDate endDate;
    private List<Employee> assignedEmployees;
 
 
-   public Activity(String activityName, String activityStatus, Date startDate, Date endDate) {
+   public Activity(String activityName, String activityStatus, LocalDate startDate, LocalDate endDate) {
     this.activityName = activityName;
-    this.ativityStatus = activityStatus;
+    this.activityStatus = activityStatus;
     this.startDate = startDate;
     this.endDate = endDate;
+    this.activityId = generateActivityId();
    }
 
-   public Activity(String activityName, String ativityStatus, Date startDate, Date endDate, double budgetedHours) {
+   public Activity(String activityName, String activityStatus, LocalDate startDate, LocalDate endDate, double budgetedHours) {
     this.activityName = activityName;
-    this.ativityStatus = ativityStatus;
+    this.activityStatus = activityStatus;
     this.startDate = startDate;
     this.endDate = endDate;
     this.budgetedHours = budgetedHours;
+    this.activityId = generateActivityId();
    }
 
-   public Activity(String activityName, Date startDate, Date endDate, double budgetedHours) {
+   public Activity(String activityName, LocalDate startDate, LocalDate endDate, double budgetedHours) {
     this.activityName = activityName;
     this.startDate = startDate;
     this.endDate = endDate;
     this.budgetedHours = budgetedHours;
+    this.activityId = generateActivityId();
    }
+
+    // Test-only constructor
+    Activity(String activityId, String activityName, String activityStatus, LocalDate startDate, LocalDate endDate, double budgetedHours) {
+        this.activityId = activityId;
+        this.activityName = activityName;
+        this.activityStatus = activityStatus;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.budgetedHours = budgetedHours;
+    }
 
    public void assignEmployee(Employee employee) {
        assignedEmployees.add(employee);
@@ -45,10 +60,10 @@ public class Activity {
          assignedEmployees.remove(employee);
     }
     public void assignProject(Project project) {
-        this.activityAssignedProject = project;
+        this.activitiesAssignedProject = project;
     }
     public void removeProject() {
-        this.activityAssignedProject = null;
+        this.activitiesAssignedProject = null;
     }
     public void setBudgetedHours(double hours) {
         this.budgetedHours = hours;
@@ -56,29 +71,29 @@ public class Activity {
     public void setCurrentSpentHours(double hours) {
         this.currentSpentHours = hours;
     }
-    public void setActivityStatus(String status) {
-        this.ativityStatus = status;
-    }
-    public void setStartDate(Date date) {
+    public void setStartDate(LocalDate date) {
         this.startDate = date;
     }
-    public void setEndDate(Date date) {
+    public void setEndDate(LocalDate date) {
         this.endDate = date;
     }
     public void setActivityName(String name) {
         this.activityName = name;
     }
-    public void setActivityId(int id) {
-        this.activityId = id;
+    public void setActivityId(String id) {
+        // this.activityId = id; // activityId is final, cannot be changed
     }
-    public int getActivityId() {
+    private String generateActivityId() {
+        return UUID.randomUUID().toString();
+    }
+    public String getActivityId() {
         return activityId;
     }
     public String getActivityName() {
         return activityName;
     }
     public String getActivityStatus() {
-        return ativityStatus;
+        return activityStatus;
     }
     public double getBudgetedHours() {
         return budgetedHours;
@@ -86,14 +101,14 @@ public class Activity {
     public double getCurrentSpentHours() {
         return currentSpentHours;
     }
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
-    public Project getActivityAssignedProject() {
-        return activityAssignedProject;
+    public Project getActivitiesAssignedProject() {
+        return activitiesAssignedProject;
     }
     public List<Employee> getAssignedEmployees() {
         return assignedEmployees;
@@ -101,30 +116,30 @@ public class Activity {
     public void setAssignedEmployees(List<Employee> assignedEmployees) {
         this.assignedEmployees = assignedEmployees;
     }
-    public void setActivityAssignedProject(Project activityAssignedProject) {
-        this.activityAssignedProject = activityAssignedProject;
+    public void setActivitiesAssignedProject(Project activitiesAssignedProject) {
+        this.activitiesAssignedProject = activitiesAssignedProject;
     }
-    public void setAtivityStatus(String ativityStatus) {
-        this.ativityStatus = ativityStatus;
+    public void setActivityStatus(String activityStatus) {
+        this.activityStatus = activityStatus;
     }
     public boolean isOverdue() {
-        Date currentDate = new Date();
-        return endDate.before(currentDate);
+        LocalDate currentDate = LocalDate.now();
+        return endDate.isBefore(currentDate);
     }
     public boolean isCompleted() {
-        return ativityStatus.equals("Completed");
+        return activityStatus.equals("Completed");
     }
     public boolean isInProgress() {
-        return ativityStatus.equals("In Progress");
+        return activityStatus.equals("In Progress");
     }
     public boolean isNotStarted() {
-        return ativityStatus.equals("Not Started");
+        return activityStatus.equals("Not Started");
     }
     public boolean isOnHold() {
-        return ativityStatus.equals("On Hold");
+        return activityStatus.equals("On Hold");
     }
     public boolean isCancelled() {
-        return ativityStatus.equals("Cancelled");
+        return activityStatus.equals("Cancelled");
     }   
     
 
