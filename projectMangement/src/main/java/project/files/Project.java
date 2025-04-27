@@ -1,6 +1,8 @@
-package dtu.example.ui;
+package project.files;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Project {
     private String projectId;
@@ -8,7 +10,7 @@ public class Project {
     private Date deadline;
     private Employee projectManager;
     // private Customer customer;
-    private Activity[] activities;
+    private Map<String, Activity> activities = new HashMap<>();
 
     public void addActivity(Activity activity) {
         // Add activity to the project
@@ -32,5 +34,8 @@ public class Project {
        return false;
     }
 
+    public String getProjectId() {
+        return projectId;
+    }
 }
 

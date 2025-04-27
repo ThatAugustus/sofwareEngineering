@@ -1,4 +1,4 @@
-package dtu.example.ui;
+package project.files;
 
 import java.text.ParseException;
 import java.util.HashMap;

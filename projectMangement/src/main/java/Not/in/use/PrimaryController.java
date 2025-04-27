@@ -1,4 +1,4 @@
-package dtu.example.ui;
+package Not.in.use;
 
 import java.io.IOException;
 import javafx.fxml.FXML;

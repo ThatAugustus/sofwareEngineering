@@ -1,6 +1,6 @@
-package dtu.example.ui;
-import java.util.Date;
+package project.files;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,6 +16,7 @@ public class Activity {
    private LocalDate startDate;
    private LocalDate endDate;
    private List<Employee> assignedEmployees;
+   private List<TimeRegistration> timeRegistrations = new ArrayList<>();
 
 
    public Activity(String activityName, String activityStatus, LocalDate startDate, LocalDate endDate) {
@@ -86,6 +87,14 @@ public class Activity {
     private String generateActivityId() {
         return UUID.randomUUID().toString();
     }
+
+
+    public void addTimeRegistration(TimeRegistration timeRegistration) {
+        timeRegistrations.add(timeRegistration);
+    }
+
+
+    // Getters and Setters
     public String getActivityId() {
         return activityId;
     }

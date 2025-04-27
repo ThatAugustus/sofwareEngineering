@@ -1,4 +1,4 @@
-package dtu.example.ui;
+package project.files;
 
 public class TimeRegistration {
 

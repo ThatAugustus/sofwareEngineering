@@ -1,6 +1,4 @@
-package dtu.example.ui;
-
-import Exceptions.EmployeeAlreadyExistsException;
+package project.files;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,8 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.Scanner;
-
-public class CLIEngine {
+public class CLIEngine {// Command Line Interface Controller
 
 	public boolean login (Map<String, Employee> employees) {
         Scanner sc = new Scanner(System.in);
@@ -39,9 +36,15 @@ public class CLIEngine {
 	public void createNewEmployee(Map<String, Employee> employees, String name, String surname, String employeeId) {
             if (isEmployeeIdInUse(employeeId, employees)) {
                 System.out.println("Employee Id already exists. Please find another id.");
+            } else {
+                employees.put(employeeId, new Employee(name, surname));
+                System.out.println("Employee created successfully!");
             }
-            employees.put(employeeId, new Employee(name, surname));
-            System.out.println("Employee created successfully!");
+    }
+
+
+    public void addNewTimeRegistration(String activityId, String employeeId, double hoursWorked, LocalDate date) {
+
     }
 
     /*public void addNewActivityToProject( Map<String, Employee> employees) throws ParseException {

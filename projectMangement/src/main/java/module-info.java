@@ -1,7 +1,10 @@
 module hellofx {
     requires transitive javafx.controls;
     requires javafx.fxml;
- 
-    opens dtu.example.ui to javafx.fxml; // Gives access to fxml files
-    exports dtu.example.ui; // Exports the class inheriting from javafx.application.Application
+    requires java.sql;
+
+    opens project.files to javafx.fxml; // Gives access to fxml files
+    exports project.files;
+    exports Not.in.use;
+    opens Not.in.use to javafx.fxml; // Exports the class inheriting from javafx.application.Application
 }

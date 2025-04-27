@@ -12,8 +12,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import Exceptions.EmployeeAlreadyExistsException;
-import dtu.example.ui.CLIEngine;
-import dtu.example.ui.Employee;
+import project.files.CLIEngine;
+import project.files.Employee;
 import io.cucumber.java.en.*;
 
 public class ProjectSteps {

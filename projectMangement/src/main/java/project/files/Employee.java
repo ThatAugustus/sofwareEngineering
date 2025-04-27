@@ -1,24 +1,30 @@
-package dtu.example.ui;
+package project.files;
 
+import java.sql.Time;
 import java.util.*;
 
 
 public class Employee {
- private String employeeId;
- private String name;
- private String surname;
- private Date birthday;
- private String email;
- private String telephonnumber;
- private Adresse adresse;
- private String username;
- private String password;
- private Map<String, Activity> activities = new HashMap<>(); // Activity ID and their corresponding activities
- private Map<String, String> projectNames = new HashMap<>(); // Activity ID and their corresponding project names
- private int numberOfActivities; // Number of activities assigned to the employee
- private final int maxActivities = 20; // Maximum number of activities allowed for an employee
- 
- public Employee() {
+    private String employeeId;
+    private String name;
+    private String surname;
+
+    // non-necessary fields
+    private Date birthday;
+    private String email;
+    private String telephonnumber;
+    private Adresse adresse;
+    private String username;
+    private String password;
+
+
+    private Map<String, Activity> activities = new HashMap<>();// Activity ID and their corresponding activities
+    private Map<String, String> projectNames = new HashMap<>(); // Activity ID and their corresponding project names
+    private int numberOfActivities; // Number of activities assigned to the employee
+    private final int maxActivities = 20; // Maximum number of activities allowed for an employee
+    private List<TimeRegistration> timeRegistrations = new ArrayList<>(); // List of time registrations for the employee
+
+    public Employee() {
      // Default constructor
  }
 
@@ -43,6 +49,16 @@ public class Employee {
      this.adresse = adresse;
      employeeId = name.toLowerCase().substring(0, 2) + surname.toLowerCase().substring(0, 2); // Generate employee ID based on name and surname
  }
+
+ public void addTimeRegistration(TimeRegistration timeRegistration) {
+     timeRegistrations.add(timeRegistration);
+ }
+
+
+
+
+
+ // getter setter methods
 
  public String getEmployeeId() {
      return employeeId;
